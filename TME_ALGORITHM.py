@@ -41,7 +41,7 @@ def brknn_hamming_loss(X_train, y_train, X_val, y_val):
     return compute_hamming_loss(y_val, y_pred)
 
 # -------------------- Full Pipeline --------------------
-def run_pipeline(file_path, label_count=101, random_state=42):#DATASET LABES
+def run_pipeline(file_path, label_count=101, random_state=42):#DATASET LABELS
     df = pd.read_csv(file_path, header=None)
     X = df.iloc[:, :-label_count].values
     y = df.iloc[:, -label_count:].values.astype(int)
