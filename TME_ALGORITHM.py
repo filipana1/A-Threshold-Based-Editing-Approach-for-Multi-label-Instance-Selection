@@ -12,7 +12,7 @@ def compute_hamming_loss(y_true, y_pred):
     return hamming_loss(y_true, y_pred)
 
 # -------------------- Selective Nearest Neighbors --------------------
-def selective_nearest_neighbors(X, y, k=3, confidence_threshold=0.98):
+def selective_nearest_neighbors(X, y, k=3, confidence_threshold=0.98):#FIND 3 NEAREST  NEIGHBORS
     knn = NearestNeighbors(n_neighbors=k + 1)
     knn.fit(X)
     indices = knn.kneighbors(X, return_distance=False)[:, 1:]
@@ -35,13 +35,13 @@ def selective_nearest_neighbors(X, y, k=3, confidence_threshold=0.98):
 
 # -------------------- BRkNN Implementation --------------------
 def brknn_hamming_loss(X_train, y_train, X_val, y_val):
-    model = MultiOutputClassifier(KNeighborsClassifier(n_neighbors=1))
+    model = MultiOutputClassifier(KNeighborsClassifier(n_neighbors=1))#BRKNN WITH K=1
     model.fit(X_train, y_train)
     y_pred = model.predict(X_val)
     return compute_hamming_loss(y_val, y_pred)
 
 # -------------------- Full Pipeline --------------------
-def run_pipeline(file_path, label_count=101, random_state=42):
+def run_pipeline(file_path, label_count=101, random_state=42):#DATASET LABES
     df = pd.read_csv(file_path, header=None)
     X = df.iloc[:, :-label_count].values
     y = df.iloc[:, -label_count:].values.astype(int)
@@ -113,8 +113,8 @@ def run_pipeline(file_path, label_count=101, random_state=42):
 
 # -------------------- Main Entry Point --------------------
 if __name__ == "__main__":
-    dataset_path = "/home/pit/PycharmProjects/ML_SNN/mediamill_norm.csv" ###############allagi
-    results = run_pipeline(file_path=dataset_path, label_count=101)#################ALLAGI
+    dataset_path = "/home/pit/PycharmProjects/ML_SNN/mediamill_norm.csv" #DATASET CSV FILE
+    results = run_pipeline(file_path=dataset_path, label_count=101)#DATASET LABELS 
 
     print("\n📊 Final Results:")
     for key, value in results.items():
